@@ -127,7 +127,7 @@ npm run build
 
 ## 美术与参考
 
-首页欢迎层参考 Internal Beyond，支持可擦雾画板、铅笔、雾气与笔触控制，并可跳过。每个标签页会话首次访问首页展示，首页页脚「重看欢迎页」可重新打开。欢迎文字、背景路径与开关集中在 `src/config/site.ts` 的 `welcome` 配置中，详细说明见 `design/welcome-screen.md`。背景与欢迎页视觉改编的非商业许可、署名及修改说明见 `THIRD-PARTY-NOTICES.md`；其余博客内容继续独立维护。
+首页欢迎层参考 Internal Beyond，仅保留默认可用的背景擦雾效果，可直接拖动鼠标或手指擦拭；不显示画板面板、开关或其他绘画工具，并可跳过。每个标签页会话首次访问首页展示，首页页脚「重看欢迎页」可重新打开。欢迎标题、背景路径与开关集中在 `src/config/site.ts` 的 `welcome` 配置中，详细说明见 `design/welcome-screen.md`。背景与欢迎页视觉改编的非商业许可、署名及修改说明见 `THIRD-PARTY-NOTICES.md`；其余博客内容继续独立维护。
 
 原 `design/` 文件完整保留。`design/blog-layout.md` 是最新博客布局规范，优先于原作品集的首页叙事；配色、中文字体和基础组件仍直接复用 `design/tokens.css`。
 

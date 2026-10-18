@@ -36,23 +36,29 @@ test('article and anchored links stay direct, and no JavaScript still permits re
   await expect(fallback.locator('[data-welcome]')).not.toBeVisible(); await noJs.close();
 });
 
-test('drawing, wiping, clearing, resizing and canvas controls work', async ({ page }) => {
+test('mist wiping is available immediately without an editor and survives resizing', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 960 }); await page.goto('/');
-  const welcome = page.getByRole('dialog'); const ink = page.locator('[data-welcome-ink]'); const fog = page.locator('[data-welcome-fog]');
-  const bounds = (await ink.boundingBox())!; const x = bounds.x + bounds.width * .73; const y = bounds.y + 330;
-  const fogAlpha = () => fog.evaluate((e: HTMLCanvasElement) => e.getContext('2d')!.getImageData(Math.round(e.width * .73), Math.round(e.height * 330 / e.clientHeight), 1, 1).data[3]);
+  const welcome = page.getByRole('dialog'); const fog = page.locator('[data-welcome-fog]');
+  await expect(welcome.locator('.welcome-heading,.welcome-description,.welcome-tools,[data-welcome-board],[data-welcome-ink]')).toHaveCount(0);
+  await expect(welcome.getByRole('slider')).toHaveCount(0);
+  const bounds = (await fog.boundingBox())!; const x = bounds.x + bounds.width * .73; const y = bounds.y + bounds.height * .35;
+  const fogAlpha = () => fog.evaluate((e: HTMLCanvasElement) => e.getContext('2d')!.getImageData(Math.round(e.width * .73), Math.round(e.height * .35), 1, 1).data[3]);
   expect(await fogAlpha()).toBe(255);
   await page.mouse.move(x - 35, y); await page.mouse.down(); await page.mouse.move(x + 35, y, { steps: 10 }); await page.mouse.up();
   expect(await fogAlpha()).toBeLessThan(20);
-  await welcome.getByRole('button', { name: '铅笔', exact: true }).click();
-  await page.mouse.move(x - 35, y); await page.mouse.down(); await page.mouse.move(x + 35, y, { steps: 10 }); await page.mouse.up();
-  const inkPixels = () => ink.evaluate((e: HTMLCanvasElement) => { const a = e.getContext('2d')!.getImageData(0, 0, e.width, e.height).data; let count = 0; for (let i = 3; i < a.length; i += 4) if (a[i]) count++; return count; });
-  expect(await inkPixels()).toBeGreaterThan(0);
-  await page.setViewportSize({ width: 1400, height: 900 }); await expect.poll(inkPixels).toBeGreaterThan(0);
-  await welcome.getByRole('slider', { name: '雾气', exact: true }).focus(); await page.keyboard.press('Home'); await expect(fog).toHaveCSS('opacity', '0.15');
-  await welcome.getByRole('button', { name: '清空', exact: true }).click(); expect(await inkPixels()).toBe(0);
-  await welcome.getByRole('button', { name: /画板 开启/ }).click(); await expect(welcome.locator('.welcome-tools')).not.toBeVisible();
-  await welcome.getByRole('button', { name: /画板 关闭/ }).click(); await expect(welcome.locator('.welcome-tools')).toBeVisible();
+  await page.setViewportSize({ width: 1400, height: 900 }); await expect.poll(fogAlpha).toBeLessThan(20);
+});
+
+test('mist responds to touch without selecting a tool', async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  const page = await context.newPage(); await page.goto('/');
+  const fog = page.locator('[data-welcome-fog]'); const bounds = (await fog.boundingBox())!;
+  const alpha = () => fog.evaluate((e: HTMLCanvasElement) => e.getContext('2d')!.getImageData(Math.round(e.width * .8), Math.round(e.height * .25), 1, 1).data[3]);
+  expect(await alpha()).toBe(255);
+  await page.touchscreen.tap(bounds.x + bounds.width * .8, bounds.y + bounds.height * .25);
+  expect(await alpha()).toBeLessThan(20);
+  await page.getByRole('button', { name: '进入博客', exact: true }).tap(); await expect(page.getByRole('dialog')).not.toBeVisible();
+  await context.close();
 });
 
 test('welcome works when storage is unavailable and motion is reduced', async ({ page }) => {

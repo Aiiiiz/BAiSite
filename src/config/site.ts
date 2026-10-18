@@ -15,8 +15,6 @@ export const welcome = {
   enabled: true,
   title: site.title,
   eyebrow: `${site.title} / A PERSONAL JOURNAL`,
-  heading: '给日常留一点空白。',
-  description: '写下所见，整理所学。\n在随笔、学习笔记和项目记录之间，慢慢认识彼此。',
   image: '/images/welcome-mist.webp',
 };
 
