@@ -1,8 +1,8 @@
 export const site = {
-  title: '此间',
-  name: '你的名字',
-  direction: '个人方向待补充',
-  description: '此间，一个记录日常、学习与实践的个人博客。',
+  title: 'Z-A',
+  name: '章白',
+  direction: 'zju生科',
+  description: '一个记录日常、学习与实践的个人博客。',
   introduction: '个人介绍待补充。这里将记录我的背景、关注的方向，以及为什么想把一些观察和思考写下来。',
   // Add only real contact details you want to make public.
   email: null as string | null,
