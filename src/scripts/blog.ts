@@ -49,6 +49,7 @@ dialog?.addEventListener('click', event => { if (event.target === dialog) { cons
 input?.addEventListener('input', () => void search());
 retry?.addEventListener('click', () => void search());
 document.addEventListener('keydown', event => {
+  if (document.querySelector<HTMLDialogElement>('[data-welcome]')?.open) return;
   const target = event.target as HTMLElement;
   if (event.key === '/' && !target.matches('input, textarea, select') && !target.isContentEditable && !event.metaKey && !event.ctrlKey && !event.altKey) { event.preventDefault(); openSearch(); }
 });

@@ -1,10 +1,13 @@
 import { test, expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
+import { site } from '../../src/config/site';
 
 const routes = ['/', '/archive/', '/posts/everyday-space/', '/about/'];
+// Blog tests start after the optional introduction; welcome behavior has its own suite.
+test.beforeEach(async ({ page }) => { await page.addInitScript(() => sessionStorage.setItem('baisite:welcome:seen:v1', '1')); });
 test('home groups writing into confirmed columns with an alternating layout', async ({ page }) => {
   await page.goto('/');
-  await expect(page).toHaveTitle('此间 · 个人博客');
+  await expect(page).toHaveTitle(`${site.title} · 个人博客`);
   await expect(page.locator('.post-row')).toHaveCount(6);
   await expect(page.locator('.post-row.is-reversed')).toHaveCount(3);
   await page.getByRole('complementary', { name: '博客栏目' }).getByRole('link', { name: '学习笔记 02' }).click();

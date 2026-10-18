@@ -127,6 +127,8 @@ npm run build
 
 ## 美术与参考
 
+首页欢迎层参考 Internal Beyond，支持可擦雾画板、铅笔、雾气与笔触控制，并可跳过。每个标签页会话首次访问首页展示，首页页脚「重看欢迎页」可重新打开。欢迎文字、背景路径与开关集中在 `src/config/site.ts` 的 `welcome` 配置中，详细说明见 `design/welcome-screen.md`。背景与欢迎页视觉改编的非商业许可、署名及修改说明见 `THIRD-PARTY-NOTICES.md`；其余博客内容继续独立维护。
+
 原 `design/` 文件完整保留。`design/blog-layout.md` 是最新博客布局规范，优先于原作品集的首页叙事；配色、中文字体和基础组件仍直接复用 `design/tokens.css`。
 
 现行美术依据为 `design/art-direction-v2.md`：纸白、石墨与统一侧光；`design/art-review.html` 可直接在浏览器打开查看整套封面和色彩。原 `art-direction.md`、`style-guide.html` 与 `design/assets/` 保留作 v1 历史材料。

@@ -3,18 +3,20 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import CategoryRail from '../components/CategoryRail.astro';
 import PostRow from '../components/PostRow.astro';
 import Arrow from '../components/Arrow.astro';
-import { columns } from '../config/site';
+import Welcome from '../components/Welcome.astro';
+import { columns, site } from '../config/site';
 import { getPosts } from '../lib/posts';
 import { withBase } from '../lib/paths';
 const posts = await getPosts();
 let index = 0;
 ---
-<SiteLayout active="home" mode="index"><CategoryRail slot="rail" posts={posts} />
-  <header class="journal-intro"><div><p class="eyebrow">此间 / A PERSONAL JOURNAL</p><h1>一些日常，一些思考。</h1><p>写下所见，整理所学，也记录慢慢成形的想法。</p></div><a class="intro-archive" href={withBase('/archive/')}><span>ALL WRITING</span><strong>{String(posts.length).padStart(2, '0')} 篇记录 <Arrow /></strong></a></header>
+<SiteLayout active="home" mode="index"><Welcome slot="welcome" /><CategoryRail slot="rail" posts={posts} />
+  <header class="journal-intro"><div><p class="eyebrow">{site.title} / A PERSONAL JOURNAL</p><h1>一些日常，一些思考。</h1><p>写下所见，整理所学，也记录慢慢成形的想法。</p></div><a class="intro-archive" href={withBase('/archive/')}><span>ALL WRITING</span><strong>{String(posts.length).padStart(2, '0')} 篇记录 <Arrow /></strong></a></header>
   {columns.map((column, columnIndex) => {
     const entries = posts.filter(p => p.data.category === column.id);
+    const description = 'description' in column && typeof column.description === 'string' ? column.description : undefined;
     return <section id={column.id} class:list={['journal-section', `section-tone-${column.tone}`]} data-observe-section>
-      <header class="column-heading"><span>{String(columnIndex + 1).padStart(2, '0')} / {String(columns.length).padStart(2, '0')}</span><div><h2>{column.title}</h2><p>{column.description}</p></div><small>{column.english}</small></header>
+      <header class="column-heading"><span>{String(columnIndex + 1).padStart(2, '0')} / {String(columns.length).padStart(2, '0')}</span><div><h2>{column.title}</h2>{description && <p>{description}</p>}</div><small>{column.english}</small></header>
       {entries.length > 0 ? entries.map(post => { index++; return <PostRow post={post} index={index} reverse={index % 2 === 0} eager={index === 1} />; }) : <p class="column-empty">这个栏目还没有文章，慢慢来。</p>}
     </section>;
   })}

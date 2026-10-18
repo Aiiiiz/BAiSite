@@ -1,0 +1,40 @@
+---
+import { site, welcome } from '../config/site';
+import { withBase } from '../lib/paths';
+import Arrow from './Arrow.astro';
+import '../styles/welcome.css';
+---
+{welcome.enabled && <dialog class="welcome" data-welcome aria-labelledby="welcome-title" aria-describedby="welcome-description">
+  <div class="welcome-shell">
+    <div class="welcome-scene" data-welcome-scene aria-hidden="true">
+      <img class="welcome-image" src={withBase(welcome.image)} alt="" width="1920" height="998" decoding="async" fetchpriority="high" />
+      <canvas class="welcome-fog" data-welcome-fog></canvas>
+      <canvas class="welcome-ink" data-welcome-ink></canvas>
+      <div class="welcome-light"></div>
+    </div>
+    <header class="welcome-top">
+      <span class="welcome-brand"><svg viewBox="0 0 28 28" width="28" height="28" fill="none" aria-hidden="true"><path d="M11 5H5v18h6m6-18h6v18h-6M14 11v6" stroke="currentColor" stroke-width="1.5" /></svg>{site.title}<span>/ A PERSONAL JOURNAL</span></span>
+      <div class="welcome-top-actions"><button type="button" class="welcome-board-toggle" data-welcome-board aria-pressed="true" aria-controls="welcome-tools">画板 <span data-welcome-board-label>开启</span></button><button type="button" class="welcome-close" data-welcome-enter aria-label="关闭欢迎页"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.5" /></svg></button></div>
+    </header>
+    <div class="welcome-main">
+      <p class="welcome-eyebrow">{welcome.eyebrow}</p><span class="welcome-rule" aria-hidden="true"></span>
+      <h2 id="welcome-title">{welcome.title}</h2>
+      <p class="welcome-heading">{welcome.heading}</p>
+      <p class="welcome-description" id="welcome-description">{welcome.description}</p>
+      <div class="welcome-actions"><button class="welcome-enter" type="button" data-welcome-enter autofocus>进入博客 <Arrow direction="right" /></button><a class="welcome-secondary" href={withBase('/about/')} data-welcome-leave>关于我</a></div>
+      <a class="welcome-skip" href={withBase('/archive/')} data-welcome-leave>直接浏览全部文章 <span aria-hidden="true">↗</span></a>
+    </div>
+    <section class="welcome-tools" id="welcome-tools" aria-label="雾玻璃画板工具">
+      <p class="welcome-draw-hint">在雾里，留下一点痕迹。</p>
+      <div class="welcome-tool-buttons" role="group" aria-label="绘画方式">
+        <button type="button" data-welcome-tool="mist" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 15a7 7 0 0 1 14 0M8 16a4 4 0 0 1 8 0M11 17v3M3 10a10 10 0 0 1 18 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>擦雾</button>
+        <button type="button" data-welcome-tool="ink" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m16 3 5 5-12 12-6 1 1-6Z M13 6l5 5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" /></svg>铅笔</button>
+        <button type="button" data-welcome-clear><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m8 20-5-5 10-12 8 7-9 10ZM7 10l9 8M12 20h9" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" /></svg>清空</button>
+      </div>
+      <div class="welcome-sliders"><label>雾气<input type="range" min="15" max="85" value="48" data-welcome-density /></label><label>笔触<input type="range" min="20" max="100" value="56" data-welcome-size /></label></div>
+      <p class="welcome-tool-note" data-welcome-notice role="status" aria-live="polite">拖动鼠标或手指即可绘画；画迹不会保存。</p>
+    </section>
+    <footer class="welcome-bottom"><span>随笔 · 学习笔记 · 项目记录</span><small>欢迎页参考 <a href="https://github.com/Sui-IB/InternalBeyond" target="_blank" rel="noopener noreferrer">Sui — Internal Beyond</a> · <a href={withBase('/licenses/internal-beyond-assets.txt')} target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a> · 已改编</small></footer>
+  </div>
+</dialog>}
+<script>import '../scripts/welcome';</script>

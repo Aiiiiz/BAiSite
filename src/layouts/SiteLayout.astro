@@ -29,10 +29,11 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
   </head>
   <body id="top" class:list={['blog-mode', `layout-${mode}`]}>
     <a class="skip-link" href="#main">跳转到内容</a>
+    <slot name="welcome" />
     <Header active={active} />
     <slot name="rail" />
     <main id="main" tabindex="-1" class:list={[{ 'blog-shell': mode !== 'standard' }]}><slot /></main>
-    <Footer />
+    <Footer showWelcome={mode === 'index'} />
     <Search />
     <script>
       import '../scripts/images';
