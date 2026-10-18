@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-labelledby="title"><title id="title">笔记：几层错落的白色书页，以纸张厚度和阴影表现信息层次</title><defs>
+  <radialGradient id="ground" cx="20%" cy="8%" r="105%"><stop stop-color="#f5f5f1"/><stop offset="1" stop-color="#deded7"/></radialGradient>
+  <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".55" stop-color="#f7f7f2"/><stop offset="1" stop-color="#deded5"/></linearGradient>
+  <linearGradient id="fold" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#b6b6ac"/><stop offset=".35" stop-color="#e5e5dc"/><stop offset="1" stop-color="#fafaf6"/></linearGradient>
+  <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c5c5ba"/><stop offset="1" stop-color="#91918a"/></linearGradient>
+  <filter id="shadow" x="-60%" y="-50%" width="240%" height="250%" color-interpolation-filters="sRGB"><feDropShadow dx="15" dy="22" stdDeviation="13" flood-color="#41413b" flood-opacity=".19"/></filter>
+  <filter id="close" x="-40%" y="-40%" width="200%" height="220%" color-interpolation-filters="sRGB"><feDropShadow dx="4" dy="7" stdDeviation="4" flood-color="#41413b" flood-opacity=".2"/></filter>
+</defs><path fill="url(#ground)" d="M0 0H640V480H0Z"/><g transform="rotate(-8 320 240)" filter="url(#shadow)">
+    <path d="M166 136H446V366H166Z" fill="#c7c7bc"/>
+    <path d="M176 124H456V354H176Z" fill="#ddddd3"/>
+    <path d="M187 112H467V342H187Z" fill="url(#paper)"/>
+    <path d="M222 153H412M222 181H378M222 209H421M222 237H391" stroke="#c4c4bb" stroke-width="2" opacity=".7"/>
+    <path d="M222 151H412M222 179H378M222 207H421M222 235H391" stroke="#fff" stroke-width="2"/>
+    <path d="M187 280Q330 294 467 280V342H187Z" fill="url(#fold)" opacity=".55"/>
+  </g><path d="M40 424H64" stroke="#82745e" stroke-width="1.5"/></svg>

@@ -1,0 +1,17 @@
+---
+import { site } from '../config/site';
+import { withBase } from '../lib/paths';
+interface Props { active?: 'home' | 'projects' | 'about' | 'archive' }
+const { active = 'home' } = Astro.props;
+---
+<header class="site-header blog-header">
+  <div class="header-inner">
+    <a class="wordmark" href={withBase('/')} aria-label={`${site.title} · 返回首页`}><svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><path d="M11 5H5v18h6m6-18h6v18h-6" stroke="currentColor" stroke-width="1.75"/><path d="M14 11v6" stroke="currentColor" stroke-width="1.5"/></svg><span>{site.title}</span><small> / BLOG</small></a>
+    <nav aria-label="主导航">
+      <a href={withBase('/')} class:list={[{ 'is-active': active === 'home' }]} aria-current={active === 'home' ? 'page' : undefined}>文章</a>
+      <a href={withBase('/archive/')} class:list={[{ 'is-active': active === 'archive' }]} aria-current={active === 'archive' ? 'page' : undefined}>归档</a>
+      <a href={withBase('/about/')} class:list={[{ 'is-active': active === 'about' }]} aria-current={active === 'about' ? 'page' : undefined}>关于</a>
+    </nav>
+    <button class="search-trigger" type="button" aria-label="搜索文章" aria-haspopup="dialog" data-search-open data-search-url={withBase('/search.json')}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><span>搜索</span><kbd>/</kbd></button>
+  </div>
+</header>

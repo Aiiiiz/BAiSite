@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-labelledby="title"><title id="title">留白：一张折起的纸，统一侧光下的纸白与灰影</title><defs>
+  <radialGradient id="ground" cx="20%" cy="8%" r="105%"><stop stop-color="#f5f5f1"/><stop offset="1" stop-color="#deded7"/></radialGradient>
+  <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".55" stop-color="#f7f7f2"/><stop offset="1" stop-color="#deded5"/></linearGradient>
+  <linearGradient id="fold" x1="0" y1="0" x2="1" y2=".5"><stop stop-color="#b6b6ac"/><stop offset=".35" stop-color="#e5e5dc"/><stop offset="1" stop-color="#fafaf6"/></linearGradient>
+  <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c5c5ba"/><stop offset="1" stop-color="#91918a"/></linearGradient>
+  <filter id="shadow" x="-60%" y="-50%" width="240%" height="250%" color-interpolation-filters="sRGB"><feDropShadow dx="15" dy="22" stdDeviation="13" flood-color="#41413b" flood-opacity=".19"/></filter>
+  <filter id="close" x="-40%" y="-40%" width="200%" height="220%" color-interpolation-filters="sRGB"><feDropShadow dx="4" dy="7" stdDeviation="4" flood-color="#41413b" flood-opacity=".2"/></filter>
+</defs><path fill="url(#ground)" d="M0 0H640V480H0Z"/><g transform="rotate(-8 320 240)" filter="url(#shadow)">
+    <path d="M204 83H438V326L374 386H204Z" fill="url(#paper)"/>
+    <path d="M374 326H438L374 386Z" fill="url(#edge)"/>
+    <path d="M374 326Q403 329 438 326Q402 347 374 386Z" fill="url(#fold)"/>
+    <path d="M225 84H437" stroke="#fff" stroke-opacity=".8"/>
+  </g><path d="M40 424H64" stroke="#82745e" stroke-width="1.5"/></svg>

@@ -1,0 +1,31 @@
+---
+import { render } from 'astro:content';
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import Artwork from '../../components/Artwork.astro';
+import Arrow from '../../components/Arrow.astro';
+import { getProjects } from '../../lib/projects';
+import { withBase } from '../../lib/paths';
+export const getStaticPaths = (async () => {
+  const projects = await getProjects();
+  return projects.map((project, index) => ({ params: { slug: project.data.slug }, props: { project, next: projects.length > 1 ? projects[(index + 1) % projects.length] : null } }));
+}) satisfies GetStaticPaths;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { project, next } = Astro.props;
+const { Content } = await render(project);
+const p = project.data;
+---
+<SiteLayout title={p.title} description={p.summary} active="projects" noindex={p.demo}>
+  <div class="container project-detail">
+    <a class="back-link" href={withBase('/projects/')}><Arrow direction="left" />返回全部作品</a>
+    <header class="project-detail-heading">
+      <p class="eyebrow">{p.category} / {p.year ?? '年份待补充'}</p>
+      <h1>{p.title}</h1><p class="project-lead">{p.summary}</p>
+      {p.demo && <p class="detail-demo-note"><span class="status-dot" aria-hidden="true"></span>示例作品 · 用于呈现视觉与阅读方式，尚未替换为个人项目。</p>}
+    </header>
+    <figure class:list={['detail-cover', `tone-${p.tone}`]}><Artwork src={p.cover} alt={p.coverAlt} eager /><figcaption>{p.demo ? '原创视觉示意，非个人项目成果。' : p.coverAlt}</figcaption></figure>
+    <dl class="project-facts"><div><dt>类别</dt><dd>{p.category}</dd></div><div><dt>我的角色</dt><dd>{p.role}</dd></div><div><dt>时间</dt><dd>{p.year ?? '待补充'}</dd></div><div><dt>内容状态</dt><dd>{p.demo ? '示例 · 待替换' : '项目记录'}</dd></div></dl>
+    <article class="prose"><Content /></article>
+    <nav class="project-navigation" aria-label="作品导航"><a class="text-link" href={withBase('/projects/')}><Arrow direction="left" />全部作品</a>{next && <a class="next-project" href={withBase(`/projects/${next.data.slug}/`)}><span>下一件{next.data.demo ? '示例' : '作品'}</span><strong>{next.data.title}<Arrow direction="right" /></strong></a>}</nav>
+  </div>
+</SiteLayout>

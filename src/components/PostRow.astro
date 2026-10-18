@@ -1,0 +1,15 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { columnFor, formatDate, readingMinutes } from '../lib/posts';
+import { withBase } from '../lib/paths';
+import Artwork from './Artwork.astro';
+import Arrow from './Arrow.astro';
+interface Props { post: CollectionEntry<'posts'>; index: number; reverse?: boolean; eager?: boolean }
+const { post, index, reverse = false, eager = false } = Astro.props;
+const p = post.data;
+const column = columnFor(p.category);
+---
+<article class:list={['post-row', `post-tone-${column.tone}`, { 'is-reversed': reverse }]}>
+  <a class="post-cover" href={withBase(`/posts/${p.slug}/`)} aria-label={`阅读：${p.title}`}><Artwork src={p.cover} alt={p.coverAlt} retry={false} eager={eager} /></a>
+  <div class="post-info"><span class="post-index" aria-hidden="true">{String(index).padStart(2, '0')}</span><p class="eyebrow">{column.english} / {p.demo ? '示例文章' : 'JOURNAL'}</p><h3><a href={withBase(`/posts/${p.slug}/`)}>{p.title}</a></h3><p class="post-excerpt">{p.summary}</p><p class="post-date"><time datetime={p.date.toISOString()}>{formatDate(p.date)}</time><span>·</span><span>约 {readingMinutes(post)} 分钟</span></p><a class="text-link" href={withBase(`/posts/${p.slug}/`)}>继续阅读 <Arrow direction="right" /></a></div>
+</article>

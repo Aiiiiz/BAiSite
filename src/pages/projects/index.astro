@@ -1,0 +1,15 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import Contact from '../../components/Contact.astro';
+import { getProjects } from '../../lib/projects';
+const projects = await getProjects();
+---
+<SiteLayout title="作品" description="浏览项目、视觉探索与创作过程。当前内容为明确标注的示例作品。" active="projects">
+  <div class="container">
+    <header class="page-intro"><p class="eyebrow">WORK / 作品集</p><h1>作品，也是思考的痕迹。</h1><p>从形态、自然到文字，留下每一次尝试的过程。</p><p class="quiet-note">当前 {projects.length} 件均为示例作品，待替换为个人真实项目。</p></header>
+    <div class="collection-heading"><span>全部作品 <span class="count">{String(projects.length).padStart(2, '0')}</span></span><span>按展示顺序排列</span></div>
+    {projects.length ? <div class="project-grid">{projects.map((project, index) => <ProjectCard project={project} index={index + 1} />)}</div> : <div class="empty-state"><h2>作品正在整理中。</h2><p>之后会在这里分享完整的项目与过程。</p></div>}
+  </div>
+  <Contact />
+</SiteLayout>

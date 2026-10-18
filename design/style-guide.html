@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>清晰而有生气 · 个人主页美术风格规范</title>
+<meta name="description" content="参考 Apple 与喜茶的产品、广告和海报艺术语言，为个人主页与作品集制定的美术风格规范。">
+<style>/* Personal portfolio art direction v1.0, 2026-10-18.
+   Project recommendations, not Apple or HEYTEA official tokens. */
+:root {
+  color-scheme: light;
+  --color-canvas: #f5f5f2;
+  --color-surface: #ffffff;
+  --color-ink: #20231f;
+  --color-muted: #62675e;
+  --color-line: #d9ddd3;
+  --color-border-control: #7c8276;
+  --color-accent: #365b45;
+  --color-accent-hover: #294735;
+  --color-lime: #dde6ad;
+  --color-sky: #bdcfdf;
+  --color-clay: #c66a4a;
+  --color-danger: #a33131;
+  --color-night: #202820;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-editorial: "Songti SC", SimSun, serif;
+  --text-hero: 2.5rem;
+  --leading-hero: 1.18;
+  --text-page: 2.25rem;
+  --leading-page: 1.22;
+  --text-section: 1.75rem;
+  --leading-section: 1.3;
+  --text-project: 1.375rem;
+  --text-body: 1rem;
+  --text-caption: 0.875rem;
+  --text-ui: 0.9375rem;
+  --leading-body: 1.8;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-18: 4.5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+  --radius-control: 0.75rem;
+  --radius-image: 1rem;
+  --radius-pill: 999px;
+  --layout-max: 75rem;
+  --layout-reading: 44rem;
+  --layout-gutter: 1.25rem;
+  --layout-columns: 4;
+  --layout-gap: 1rem;
+  --section-gap: 4.5rem;
+  --control-height: 3rem;
+  --target-min: 2.75rem;
+  --motion-fast: 160ms;
+  --motion-medium: 240ms;
+  --motion-enter: 420ms;
+  --ease-standard: cubic-bezier(.22, 1, .36, 1);
+  --shadow-overlay: 0 16px 48px rgb(32 35 31 / 12%);
+}
+@media (min-width: 48rem) {
+  :root {
+    --text-hero: 3.5rem;
+    --text-page: 2.75rem;
+    --text-section: 2rem;
+    --text-body: 1.125rem;
+    --layout-gutter: 2rem;
+    --layout-columns: 8;
+    --layout-gap: 1.5rem;
+    --section-gap: 6rem;
+  }
+}
+@media (min-width: 75rem) {
+  :root {
+    --text-hero: 4.5rem;
+    --leading-hero: 1.12;
+    --text-page: 3.5rem;
+    --leading-page: 1.15;
+    --text-section: 2.25rem;
+    --leading-section: 1.25;
+    --text-project: 1.5rem;
+    --layout-gutter: 3rem;
+    --layout-columns: 12;
+    --section-gap: 8rem;
+  }
+}
+/* Optional primitives. Scope or map these to the framework in use. */
+.portfolio-container {
+  width: min(calc(100% - var(--layout-gutter) * 2), var(--layout-max));
+  margin-inline: auto;
+}
+.portfolio-button {
+  min-height: var(--control-height);
+  padding: 0.75rem 1.375rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  background: var(--color-accent);
+  color: #fff;
+  font: 600 var(--text-ui) / 1.4 var(--font-sans);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--motion-fast) ease-out;
+}
+.portfolio-button:hover { background: var(--color-accent-hover); }
+.portfolio-button:disabled,
+.portfolio-button[aria-disabled="true"] {
+  background: var(--color-line);
+  color: var(--color-muted);
+  cursor: not-allowed;
+}
+.portfolio-button:focus-visible,
+.portfolio-link:focus-visible,
+.portfolio-project:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+.portfolio-link {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+.portfolio-project { color: inherit; text-decoration: none; }
+.portfolio-project__image {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-image);
+}
+.portfolio-project__image img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform var(--motion-medium) var(--ease-standard);
+}
+.portfolio-project__image--contain img { object-fit: contain; }
+.portfolio-project:focus-visible .portfolio-project__title {
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+@media (hover: hover) and (pointer: fine) {
+  .portfolio-project:hover .portfolio-project__image img { transform: scale(1.02); }
+  .portfolio-project:hover .portfolio-project__title { text-decoration: underline; }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion-fast: 0ms; --motion-medium: 0ms; --motion-enter: 0ms; }
+  html:focus-within { scroll-behavior: auto; }
+  .portfolio-project__image img { transform: none !important; }
+}
+
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;background:var(--color-canvas);color:var(--color-ink);font:16px/1.8 var(--font-sans)}
+a{color:var(--color-accent);text-underline-offset:4px}button{font:inherit}button,a{-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--color-accent);outline-offset:4px}
+.skip{position:absolute;left:16px;top:-80px;background:white;padding:12px;z-index:20}.skip:focus{top:8px}
+.topbar{background:rgba(245,245,242,.97);position:sticky;top:0;z-index:10;border-bottom:1px solid var(--color-line)}
+.topbar-inner{max-width:1320px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 48px;min-height:64px}
+.brand{font-size:14px;font-weight:650;letter-spacing:.08em}.edition{font-size:12px;color:var(--color-muted)}.toolbar{display:flex;align-items:center;gap:24px}
+.toolbar a,.toolbar button{font-size:14px;min-height:44px;display:inline-flex;align-items:center}.toolbar button{background:none;border:0;color:var(--color-accent);text-decoration:underline;cursor:pointer;padding:0}
+.wrap{width:min(100% - 96px,1224px);margin:auto}.cover{padding:76px 0 72px}.kicker{font-size:12px;letter-spacing:.13em;font-weight:600;color:var(--color-muted);margin:0 0 24px}
+.cover-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:68px;align-items:center}.cover h1{font-size:clamp(42px,5.2vw,72px);font-weight:650;line-height:1.17;letter-spacing:0;margin:0 0 28px}.cover h1 em{font-style:normal;color:var(--color-accent)}
+.intro{max-width:31em;font-size:17px;color:var(--color-muted);margin:0 0 28px}.subline{font-size:13px;color:var(--color-muted);margin-top:24px}.cover-art{margin:0}.cover-art svg{display:block;width:100%;height:auto;border-radius:16px}.cover-art figcaption{font-size:12px;color:var(--color-muted);display:flex;justify-content:space-between;gap:12px;margin-top:12px}
+.action{display:inline-flex;align-items:center;justify-content:center;min-height:48px;background:var(--color-accent);color:#fff;border-radius:12px;padding:10px 22px;font-size:15px;text-decoration:none;font-weight:600}.action:hover{background:var(--color-accent-hover)}
+.direction-strip{padding:26px 0;display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--color-line);border-bottom:1px solid var(--color-line);gap:24px}.direction-strip strong{font-size:28px;font-weight:550;display:block;line-height:1.25}.direction-strip span{font-size:13px;color:var(--color-muted)}
+.visuals{padding:80px 0}.section-intro{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:32px}.section-intro h2{font-size:32px;font-weight:600;line-height:1.35;margin:0 0 10px}.section-intro p{font-size:14px;color:var(--color-muted);margin:0;max-width:40em}.section-id{font:14px/1.4 ui-monospace,monospace;color:var(--color-muted);white-space:nowrap}
+.studies{display:grid;grid-template-columns:1fr 1fr;gap:32px}.study{margin:0}.study svg{width:100%;display:block;border-radius:16px}.study h3{font-size:22px;font-weight:600;margin:20px 0 4px}.study figcaption p{font-size:14px;color:var(--color-muted);max-width:35em;margin:0}.sample-label{font-size:12px;letter-spacing:.08em;color:var(--color-muted)}
+.palette{display:grid;grid-template-columns:repeat(8,1fr);gap:12px;margin:40px 0 0}.swatch{min-width:0}.chip{height:100px;border-radius:8px;margin-bottom:12px;box-shadow:inset 0 0 0 1px rgb(32 35 31 / 8%)}.swatch strong{display:block;font-size:14px}.swatch code{font-size:11px;color:var(--color-muted);letter-spacing:0}
+.composition{margin-top:64px;border:1px solid var(--color-line);border-radius:16px;overflow:hidden;background:white}.composition-label{padding:14px 24px;border-bottom:1px solid var(--color-line);font-size:12px;letter-spacing:.05em;color:var(--color-muted)}
+.mock-nav{display:flex;justify-content:space-between;align-items:center;padding:24px 36px;gap:16px;font-size:13px}.mock-nav strong{font-size:17px}.mock-links{display:flex;gap:24px;color:var(--color-muted)}
+.mock-hero{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;padding:40px 36px 56px}.mock-copy h3{font-size:clamp(34px,4vw,54px);line-height:1.18;margin:0 0 20px;font-weight:600}.mock-copy p{font-size:14px;color:var(--color-muted);max-width:26em;margin-bottom:24px}.mock-art svg{display:block;width:100%;border-radius:16px}.mock-copy .eyebrow{font-size:12px;letter-spacing:.06em;color:var(--color-accent);margin-bottom:20px}.mock-caption{padding:16px 36px 22px;color:var(--color-muted);font-size:12px;margin:0}
+.type-sheet{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;margin-top:64px;padding-top:32px;border-top:1px solid var(--color-line)}.type-sheet h3{font-size:14px;color:var(--color-muted);font-weight:500;margin:0 0 24px}.type-big{font-size:40px;font-weight:600;line-height:1.3;margin-bottom:20px}.type-serif{font-family:var(--font-editorial);font-size:30px;line-height:1.5;margin-bottom:24px}.type-small{font-size:14px;color:var(--color-muted)}
+.states{display:flex;flex-wrap:wrap;gap:12px}.state{padding:12px 20px;min-height:48px;background:var(--color-accent);color:white;border-radius:12px;font-size:14px;display:inline-flex;align-items:center}.state.hover{background:var(--color-accent-hover)}.state.focus{outline:2px solid var(--color-accent);outline-offset:4px}.state.disabled{background:var(--color-line);color:var(--color-muted)}.states-note{font-size:12px;color:var(--color-muted);margin-top:24px}
+.doc-area{border-top:1px solid var(--color-line);padding:64px 0 96px;display:grid;grid-template-columns:224px minmax(0,1fr);gap:72px}.doc-nav{position:sticky;top:94px;max-height:calc(100vh - 120px);overflow:auto;align-self:start}.doc-nav summary{font-weight:600;font-size:14px;padding:10px 0;cursor:pointer}.doc-nav ul{padding:0;list-style:none;margin:16px 0}.doc-nav li{margin:6px 0}.doc-nav a{font-size:12px;text-decoration:none;color:var(--color-muted);display:block;padding:5px 0;line-height:1.6}.doc-nav a:hover{color:var(--color-accent);text-decoration:underline}
+.document{min-width:0}.document h2{font-size:28px;line-height:1.35;margin:64px 0 28px;font-weight:600}.document h2:first-child{margin-top:0}.document h3{font-size:19px;line-height:1.5;margin:32px 0 16px;font-weight:600}.document p{margin:16px 0}.document li{margin-bottom:8px}.document ul,.document ol{padding-left:22px}.document strong{font-weight:650}.document code{background:#e9ece4;font-size:.85em;border-radius:4px;padding:2px 4px;overflow-wrap:anywhere}.document a{overflow-wrap:anywhere}.document table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.7}.document th{font-weight:600;text-align:left;background:#e9ece4}.document th,.document td{padding:12px 14px;border-bottom:1px solid var(--color-line);vertical-align:top;min-width:100px}.document th:first-child,.document td:first-child{padding-left:12px}.table-scroll{overflow:auto;margin:24px 0;max-width:100%}.document blockquote{border-left:3px solid var(--color-accent);padding-left:20px;margin-left:0}.closing{padding:28px 0 48px;border-top:1px solid var(--color-line);display:flex;justify-content:space-between;gap:16px;font-size:12px;color:var(--color-muted)}
+@media(min-width:1600px){.wrap{width:1224px}}
+@media(max-width:1000px){.wrap{width:calc(100% - 64px)}.topbar-inner{padding-inline:32px}.cover-grid{gap:32px}.cover h1{font-size:52px}.intro{font-size:16px}.doc-area{grid-template-columns:180px minmax(0,1fr);gap:36px}.palette{grid-template-columns:repeat(4,1fr)}.chip{height:88px}.cover{padding-top:56px}.mock-hero{gap:24px;padding-top:28px}.mock-copy h3{font-size:36px}.mock-nav{padding:24px}.mock-hero{padding-inline:24px}.type-sheet{gap:28px}}
+@media(max-width:767px){html{scroll-padding-top:80px}.wrap{width:calc(100% - 40px)}.topbar-inner{padding:8px 20px;gap:10px}.brand{font-size:12px;letter-spacing:.03em}.edition{display:none}.toolbar{gap:16px}.toolbar a,.toolbar button{font-size:12px}.cover{padding:48px 0}.cover-grid{grid-template-columns:1fr;gap:36px}.cover h1{font-size:44px;margin-bottom:24px}.kicker{font-size:11px;margin-bottom:20px}.intro{font-size:16px}.cover-art figcaption{font-size:11px}.direction-strip{gap:12px}.direction-strip strong{font-size:20px}.direction-strip span{font-size:11px;line-height:1.6;display:block;margin-top:6px}.visuals{padding:56px 0}.section-intro{align-items:start;gap:16px}.section-intro h2{font-size:26px}.section-id{font-size:11px}.studies{grid-template-columns:1fr;gap:36px}.study h3{font-size:21px}.palette{gap:10px;margin-top:32px}.swatch code{font-size:10px}.chip{height:64px}.composition{margin-top:48px}.composition-label{padding:12px 20px;font-size:11px}.mock-nav{padding:20px;font-size:11px}.mock-nav strong{font-size:15px}.mock-links{gap:12px}.mock-hero{grid-template-columns:1fr;padding:20px;gap:28px}.mock-copy h3{font-size:38px}.mock-copy p{font-size:14px}.mock-caption{padding:8px 20px 20px}.type-sheet{grid-template-columns:1fr;margin-top:48px;gap:40px}.type-big{font-size:32px}.type-serif{font-size:27px}.doc-area{grid-template-columns:1fr;gap:40px;padding:32px 0 64px}.doc-nav{position:static;max-height:none;overflow:visible}.doc-nav .toc ul{display:grid;grid-template-columns:1fr 1fr;gap:4px 20px;margin-bottom:0}.doc-nav a{font-size:12px}.document{font-size:15px}.document h2{font-size:25px;margin-top:52px}.document h3{font-size:18px}.document th,.document td{padding:10px;font-size:12px;min-width:110px}.closing{flex-direction:column;gap:4px}.table-scroll{border:1px solid var(--color-line);border-radius:8px}.type-sheet h3{margin-bottom:20px}}
+@media(max-width:359px){.cover h1{font-size:38px}.brand{font-size:11px}.toolbar{gap:10px}.mock-nav{flex-wrap:wrap}.mock-copy h3{font-size:32px}.palette{grid-template-columns:repeat(2,1fr)}.direction-strip strong{font-size:18px}.doc-nav .toc ul{grid-template-columns:1fr}.section-intro .section-id{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+@media print{body{background:white;font-size:10pt}.topbar,.doc-nav,.toolbar,.skip,.cover .action{display:none}.wrap{width:100%;max-width:none}.cover{padding:0 0 24pt}.cover-grid{gap:20pt}.cover h1{font-size:34pt}.intro{font-size:11pt}.cover-art figcaption{font-size:8pt}.cover-grid,.studies,.palette,.composition,.type-sheet{break-inside:avoid}.visuals{padding:28pt 0}.section-intro h2{font-size:22pt}.direction-strip strong{font-size:20pt}.chip{height:38pt}.swatch code{font-size:8pt}.doc-area{display:block;padding-top:24pt}.document h2{font-size:20pt;break-after:avoid}.document h3{break-after:avoid}.document table{font-size:8pt}.document th,.document td{min-width:0;padding:7pt}.table-scroll{overflow:visible;break-inside:auto}.document tr{break-inside:avoid}p,li{orphans:3;widows:3}.closing{padding-bottom:0}.type-big{font-size:24pt}.type-serif{font-size:21pt}.mock-copy h3{font-size:28pt}.mock-caption{font-size:8pt}a{color:inherit}.document a{text-decoration:underline}@page{size:A4;margin:16mm}}
+</style></head>
+<body><a class="skip" href="#specification">跳转至完整规范</a>
+<header class="topbar"><div class="topbar-inner"><div><span class="brand">ART DIRECTION / 视觉规范</span><span class="edition">　个人主页 · V1.0</span></div><nav class="toolbar" aria-label="文档工具"><a href="#visual-board">看样张</a><a href="#specification">读规范</a><button type="button" id="print-guide">打印</button></nav></div></header>
+<main id="main" class="wrap">
+<section class="cover" aria-labelledby="cover-title"><p class="kicker">PERSONAL PORTFOLIO　/　2026.10.18</p><div class="cover-grid"><div><h1 id="cover-title">清晰，<br>而<em>有生气。</em></h1><p class="intro">让作品被看清，让创作者被记住。<br>以精确的展示秩序承托作品，用自然的温度与少量趣味，留下属于你的印象。</p><a class="action" href="#specification">阅读美术风格规范　↓</a><p class="subline">产品影像 × 海报艺术 × 个人表达<br>灵感参考：Apple / 喜茶的产品、广告、海报与字体项目</p></div><figure class="cover-art"><svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="原创形式示意：雾蓝背景上，一条浅色纸带构成有转折的环，侧光强调纸带的厚度">
+<defs>
+ <linearGradient id="paper1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffefa"/><stop offset=".5" stop-color="#e7e9e2"/><stop offset="1" stop-color="#aeb7aa"/></linearGradient>
+ <linearGradient id="fold1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a4b5b5"/><stop offset=".48" stop-color="#f9faf1"/><stop offset="1" stop-color="#f4f6f0"/></linearGradient>
+ <linearGradient id="edge1" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fcfdf7"/><stop offset="1" stop-color="#c2ccc1"/></linearGradient>
+ <filter id="soft1"><feGaussianBlur stdDeviation="14"/></filter>
+</defs>
+<path fill="#bdcfdf" d="M0 0h640v480H0z"/>
+<ellipse cx="333" cy="389" rx="164" ry="19" fill="#617f8c" opacity=".21" filter="url(#soft1)"/>
+<path d="M170 316 243 121Q251 102 274 107L467 145Q486 149 481 171L425 354Q420 370 397 369L195 347Q161 344 170 316Z" fill="url(#paper1)"/>
+<path d="m248 148 156 31-44 129-153-17Z" fill="#bdcfdf"/>
+<path d="m171 315 77-167 44 43-48 130 153 48-202-22q-32-2-24-32Z" fill="url(#fold1)"/>
+<path d="m292 191 112-12 63-34-193-38q-21-5-31 14l-36 170 41-143Z" fill="url(#edge1)"/>
+<path d="m404 179 63-34q20 2 14 26l-56 183q-5 16-28 15l-37-61Z" fill="url(#paper1)"/>
+<path d="m244 321 153 48-37-61-68-117Z" fill="#d8dfd3"/>
+<path d="m243 121 31-14 193 38" fill="none" stroke="#fff" stroke-width="2" opacity=".75"/>
+<circle cx="508" cy="88" r="9" fill="#c66a4a"/>
+</svg><figcaption><span>FORM STUDY 01 / 折光</span><span>原创形式示意</span></figcaption></figure></div></section>
+<div class="direction-strip" aria-label="方向组合"><div><strong>精确秩序</strong><span>约 65% · 主体、对齐与留白</span></div><div><strong>自然温度</strong><span>约 25% · 材料、色彩与中文气质</span></div><div><strong>个人趣味</strong><span>约 10% · 一个值得记住的细节</span></div></div>
+<section id="visual-board" class="visuals" aria-labelledby="board-title"><div class="section-intro"><div><h2 id="board-title">先感受，再落地。</h2><p>以下为本方案原创视觉练习，用来表达合成后的方向。品牌原素材请看文末参考索引。</p></div><span class="section-id">VISUAL BOARD / 01</span></div>
+<div class="studies"><figure class="study"><svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="原创形式示意：雾蓝背景上，一条浅色纸带构成有转折的环，侧光强调纸带的厚度">
+<defs>
+ <linearGradient id="paper2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffefa"/><stop offset=".5" stop-color="#e7e9e2"/><stop offset="1" stop-color="#aeb7aa"/></linearGradient>
+ <linearGradient id="fold2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a4b5b5"/><stop offset=".48" stop-color="#f9faf1"/><stop offset="1" stop-color="#f4f6f0"/></linearGradient>
+ <linearGradient id="edge2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fcfdf7"/><stop offset="1" stop-color="#c2ccc1"/></linearGradient>
+ <filter id="soft2"><feGaussianBlur stdDeviation="14"/></filter>
+</defs>
+<path fill="#bdcfdf" d="M0 0h640v480H0z"/>
+<ellipse cx="333" cy="389" rx="164" ry="19" fill="#617f8c" opacity=".21" filter="url(#soft2)"/>
+<path d="M170 316 243 121Q251 102 274 107L467 145Q486 149 481 171L425 354Q420 370 397 369L195 347Q161 344 170 316Z" fill="url(#paper2)"/>
+<path d="m248 148 156 31-44 129-153-17Z" fill="#bdcfdf"/>
+<path d="m171 315 77-167 44 43-48 130 153 48-202-22q-32-2-24-32Z" fill="url(#fold2)"/>
+<path d="m292 191 112-12 63-34-193-38q-21-5-31 14l-36 170 41-143Z" fill="url(#edge2)"/>
+<path d="m404 179 63-34q20 2 14 26l-56 183q-5 16-28 15l-37-61Z" fill="url(#paper2)"/>
+<path d="m244 321 153 48-37-61-68-117Z" fill="#d8dfd3"/>
+<path d="m243 121 31-14 193 38" fill="none" stroke="#fff" stroke-width="2" opacity=".75"/>
+<circle cx="508" cy="88" r="9" fill="#c66a4a"/>
+</svg><figcaption><h3>01 / 精确的形态</h3><p>安静底板、明确主角、受控的光影。把这套方法用在作品全貌与关键细节上，保持作品的真实颜色。</p></figcaption></figure><figure class="study"><svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="原创形式示意：纸白底上的植物线描、芽绿色纸片与陶土色圆点，表现克制的手作感">
+<path fill="#eeeee6" d="M0 0h640v480H0z"/>
+<path d="m358 73 180 28-35 278-173-18Z" fill="#dde6ad"/>
+<path d="M215 383q59-68 80-132t54-110" fill="none" stroke="#365b45" stroke-width="4" stroke-linecap="round"/>
+<path d="M285 284q-93 3-104-79 81-5 104 79Zm22-58q-17-85 61-103 17 76-61 103Zm-49 107q7-60-57-79-23 61 57 79Zm78-163q-39-30-21-77 52 26 21 77Zm-46 108q78 2 102-67-72-11-102 67Z" fill="#365b45"/>
+<path d="m187 213 91 65m38-64 45-81m-150 132 42 59m46-52 81-52" fill="none" stroke="#9cb18c" stroke-width="1.5"/>
+<circle cx="461" cy="309" r="31" fill="#c66a4a"/>
+<path d="M126 371q-19 17-2 24t34-17m-40 31q43 9 85-8" fill="none" stroke="#365b45" stroke-width="2" stroke-linecap="round"/>
+<path d="M125 113h88m-88 12h54" fill="none" stroke="#92998b" stroke-width="2"/>
+</svg><figcaption><h3>02 / 有温度的痕迹</h3><p>自然色、纸张与一笔手作感。用在个人观察和过程记录中，既有性格，也给阅读留下空间。</p></figcaption></figure></div>
+<div class="palette" aria-label="核心色板"><div class="swatch"><div class="chip" style="background:#F5F5F2"></div><strong>纸白</strong><code>#F5F5F2</code></div><div class="swatch"><div class="chip" style="background:#FFFFFF"></div><strong>素白</strong><code>#FFFFFF</code></div><div class="swatch"><div class="chip" style="background:#20231F"></div><strong>墨黑</strong><code>#20231F</code></div><div class="swatch"><div class="chip" style="background:#62675E"></div><strong>石灰</strong><code>#62675E</code></div><div class="swatch"><div class="chip" style="background:#365B45"></div><strong>森绿</strong><code>#365B45</code></div><div class="swatch"><div class="chip" style="background:#DDE6AD"></div><strong>芽绿</strong><code>#DDE6AD</code></div><div class="swatch"><div class="chip" style="background:#BDCFDF"></div><strong>雾蓝</strong><code>#BDCFDF</code></div><div class="swatch"><div class="chip" style="background:#C66A4A"></div><strong>陶土</strong><code>#C66A4A</code></div></div>
+<div class="composition"><div class="composition-label">APPLICATION STUDY / 首页首屏构图示意 · 内容待替换</div><div class="mock-nav"><strong>你的名字<span aria-hidden="true" style="color:var(--color-clay)"> ●</span></strong><div class="mock-links" aria-label="示意导航，非交互内容"><span>作品</span><span>关于</span><span>联系 ↗</span></div></div><div class="mock-hero"><div class="mock-copy"><p class="eyebrow">个人方向 / 一句具体的自我介绍</p><h3>把观察，<br>做成作品。</h3><p>在这里，用一句话说清你的创作方向。选一件最能代表自己的作品，让它成为画面的主角。</p><a class="action" href="#specification">查看页面应用规范　↗</a></div><div class="mock-art"><svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="原创形式示意：雾蓝背景上，一条浅色纸带构成有转折的环，侧光强调纸带的厚度">
+<defs>
+ <linearGradient id="paper3" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffefa"/><stop offset=".5" stop-color="#e7e9e2"/><stop offset="1" stop-color="#aeb7aa"/></linearGradient>
+ <linearGradient id="fold3" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a4b5b5"/><stop offset=".48" stop-color="#f9faf1"/><stop offset="1" stop-color="#f4f6f0"/></linearGradient>
+ <linearGradient id="edge3" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fcfdf7"/><stop offset="1" stop-color="#c2ccc1"/></linearGradient>
+ <filter id="soft3"><feGaussianBlur stdDeviation="14"/></filter>
+</defs>
+<path fill="#bdcfdf" d="M0 0h640v480H0z"/>
+<ellipse cx="333" cy="389" rx="164" ry="19" fill="#617f8c" opacity=".21" filter="url(#soft3)"/>
+<path d="M170 316 243 121Q251 102 274 107L467 145Q486 149 481 171L425 354Q420 370 397 369L195 347Q161 344 170 316Z" fill="url(#paper3)"/>
+<path d="m248 148 156 31-44 129-153-17Z" fill="#bdcfdf"/>
+<path d="m171 315 77-167 44 43-48 130 153 48-202-22q-32-2-24-32Z" fill="url(#fold3)"/>
+<path d="m292 191 112-12 63-34-193-38q-21-5-31 14l-36 170 41-143Z" fill="url(#edge3)"/>
+<path d="m404 179 63-34q20 2 14 26l-56 183q-5 16-28 15l-37-61Z" fill="url(#paper3)"/>
+<path d="m244 321 153 48-37-61-68-117Z" fill="#d8dfd3"/>
+<path d="m243 121 31-14 193 38" fill="none" stroke="#fff" stroke-width="2" opacity=".75"/>
+<circle cx="508" cy="88" r="9" fill="#c66a4a"/>
+</svg></div></div><p class="mock-caption">这是美术构图示意，不是已开发的网站；署名、自述、作品和项目经历需要用真实内容替换。</p></div>
+<div class="type-sheet"><div><h3>TYPE / 中文为主，少量编辑气质</h3><div class="type-big">把作品讲清楚。</div><div class="type-serif">也留一点，自己的语气。</div><p class="type-small">无衬线用于标题与正文；宋体只用于短引言。<br>不靠装饰性字体制造距离感。</p></div><div><h3>STATES / 同一语言，明确反馈</h3><div class="states" aria-label="按钮状态的静态视觉样本"><span class="state">默认</span><span class="state hover">悬停</span><span class="state focus">键盘焦点</span><span class="state disabled">不可用</span></div><p class="states-note">以上是状态样本。正式按钮高 48px、圆角 12px；交互变化保持轻微，文字始终清楚。</p></div></div>
+</section>
+<div class="doc-area" id="specification"><aside class="doc-nav"><details open><summary>完整规范 / 14 个章节</summary><div class="toc">
+<ul>
+<li><a href="#01">01 · 设计结论</a></li>
+<li><a href="#02">02 · 从参考素材到设计语言</a></li>
+<li><a href="#03">03 · 气质与边界</a></li>
+<li><a href="#04">04 · 色彩系统</a></li>
+<li><a href="#05">05 · 字体与中文排版</a></li>
+<li><a href="#06">06 · 构图、网格与页面节奏</a></li>
+<li><a href="#07">07 · 影像与材质</a></li>
+<li><a href="#08">08 · 组件视觉规范</a></li>
+<li><a href="#09">09 · 动效语言</a></li>
+<li><a href="#10">10 · 页面应用方案</a></li>
+<li><a href="#11">11 · 手机与无障碍细则</a></li>
+<li><a href="#12">12 · 素材与开发交付</a></li>
+<li><a href="#13">13 · 易偏离方向的做法</a></li>
+<li><a href="#14">14 · 参考索引</a></li>
+</ul>
+</div>
+</details></aside><article class="document" aria-label="个人主页与作品集美术风格规范"><h2 id="01">01 · 设计结论</h2>
+<p>让访客先看见作品，再通过细节认识创作者。网站应当像一本精心编辑的个人作品集：画面清楚，节奏舒展，有真实的材料和生活气息。</p>
+<p>推荐方向是<strong>精确的展示秩序 + 自然的视觉温度 + 少量个人趣味</strong>。将 Apple 产品宣传影像的主体控制、材料表现和视觉减法，与喜茶部分海报、包装和字体项目里的自然叙事、中文气质和趣味结合，最终建立属于个人的视觉系统。</p>
+<p>参考对象限定为产品影像、广告摄影、海报、包装与字体作品。官网导航、网页结构和交互样式不作为采样对象。公开文章页面仅作为素材出处。</p>
+<p>下文色值、比例、字号、网格和动效均为本项目的设计建议，不是两家品牌的官方规范。两家品牌都有多种视觉路线，本规范选择适合个人作品集的部分。</p>
+<h2 id="02">02 · 从参考素材到设计语言</h2>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>参考对象</th>
+<th>可观察的视觉特征</th>
+<th>转译到个人主页</th>
+<th>不直接移植的元素</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apple，2024 iMac 产品发布影像 [R1]</td>
+<td>多色机身、同色配件；前后表面的色彩强弱有区分</td>
+<td>同一项目用统一的背景与辅色；让作品细节成为画面中心</td>
+<td>产品造型、品牌标识、完整广告构图</td>
+</tr>
+<tr>
+<td>Apple，Shot on iPhone 微距挑战作品 [R2]</td>
+<td>对日常材料、自然细节的近距离观看</td>
+<td>用局部、过程、纹理说明创作能力；人像与生活照保留真实感</td>
+<td>原摄影作品、品牌口号</td>
+</tr>
+<tr>
+<td>喜茶，木姜子滇木瓜宣传海报 [R3]</td>
+<td>深色背景、原料静物、纸张与织物；以少量大字组织画面</td>
+<td>作品旁呈现草稿、材料、观察记录；用真实过程补充结果</td>
+<td>饮品杯型、商标、具体食材陈列</td>
+</tr>
+<tr>
+<td>喜茶 × 方正字库，中式灵感体项目 [R4]</td>
+<td>从传统汉字中提炼当代字形，字体自身承担品牌表达</td>
+<td>以现代中文排版为主体，少数章节使用宋体强调语气</td>
+<td>品牌专属字体、未经设计的书法贴图</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>设计推导：</strong>专业感来自作品的清晰呈现与稳定的编辑秩序；亲近感来自真实的观察、材料和个人表达。以这两点作为合成依据，而不是把两套品牌符号拼在一起。</p>
+<p>建议按“约 65% 精确秩序 / 25% 自然温度 / 10% 趣味细节”控制视觉重心。此比例是评图时的主观尺度，不是像素面积或品牌相似度。执行上：每屏一个主角、每屏至多一个装饰性笔触、每个作品保留自己的主题色。</p>
+<h2 id="03">03 · 气质与边界</h2>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>关键词</th>
+<th>应当呈现的样子</th>
+<th>失控时的样子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>清晰</td>
+<td>明确的主图、标题、行动入口</td>
+<td>图文同时抢占注意力</td>
+</tr>
+<tr>
+<td>精确</td>
+<td>对齐稳定、裁切有意图、材料细节可信</td>
+<td>大量装饰掩盖作品本身</td>
+</tr>
+<tr>
+<td>自然</td>
+<td>接近纸、植物、天空、陶土的颜色与触感</td>
+<td>全站套米黄滤镜，作品失去原色</td>
+</tr>
+<tr>
+<td>有人味</td>
+<td>简短自述、真实过程照、一个个人笔触</td>
+<td>每张卡片都有贴纸与涂鸦</td>
+</tr>
+<tr>
+<td>当代中文</td>
+<td>中文为主、字形端正、局部宋体</td>
+<td>用生僻字、竖排和印章堆砌“中式”</td>
+</tr>
+</tbody>
+</table></div>
+<p>一屏内只设一个视觉峰值：可以是大标题、主图或强色块。其余元素降低强度。个人辨识度优先来自署名、作品、观点与摄影选择。</p>
+<h2 id="04">04 · 色彩系统</h2>
+<h3 id="_1">基础色与语义色</h3>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>名称 / CSS token</th>
+<th>色值</th>
+<th>使用位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>纸白 / <code>--color-canvas</code></td>
+<td><code>#F5F5F2</code></td>
+<td>页面底色，保持微暖而接近中性</td>
+</tr>
+<tr>
+<td>素白 / <code>--color-surface</code></td>
+<td><code>#FFFFFF</code></td>
+<td>图片底板、输入区、局部内容面</td>
+</tr>
+<tr>
+<td>墨黑 / <code>--color-ink</code></td>
+<td><code>#20231F</code></td>
+<td>标题、正文、图标</td>
+</tr>
+<tr>
+<td>石灰 / <code>--color-muted</code></td>
+<td><code>#62675E</code></td>
+<td>日期、项目类别、说明文字</td>
+</tr>
+<tr>
+<td>结构线 / <code>--color-line</code></td>
+<td><code>#D9DDD3</code></td>
+<td>非必要装饰分隔，不单独承担控件边界识别</td>
+</tr>
+<tr>
+<td>控件线 / <code>--color-border-control</code></td>
+<td><code>#7C8276</code></td>
+<td>输入框与空心按钮边界</td>
+</tr>
+<tr>
+<td>森绿 / <code>--color-accent</code></td>
+<td><code>#365B45</code></td>
+<td>主要按钮、链接、选中态</td>
+</tr>
+<tr>
+<td>深森绿 / <code>--color-accent-hover</code></td>
+<td><code>#294735</code></td>
+<td>主按钮悬停与按下态</td>
+</tr>
+<tr>
+<td>芽绿 / <code>--color-lime</code></td>
+<td><code>#DDE6AD</code></td>
+<td>小面积纸签、局部背景，配墨黑字</td>
+</tr>
+<tr>
+<td>雾蓝 / <code>--color-sky</code></td>
+<td><code>#BDCFDF</code></td>
+<td>可选项目底板，配墨黑字</td>
+</tr>
+<tr>
+<td>陶土 / <code>--color-clay</code></td>
+<td><code>#C66A4A</code></td>
+<td>装饰圆点、插画局部，不承载小号文字</td>
+</tr>
+<tr>
+<td>提示红 / <code>--color-danger</code></td>
+<td><code>#A33131</code></td>
+<td>表单错误文字及边界</td>
+</tr>
+<tr>
+<td>深底 / <code>--color-night</code></td>
+<td><code>#202820</code></td>
+<td>可选的单个作品章节，配 <code>#F5F5F2</code> 字</td>
+</tr>
+</tbody>
+</table></div>
+<p>界面主色只用森绿。芽绿、雾蓝、陶土按内容选用，每屏最多一种辅助色；作品原图不受这个数量限制。推荐全站界面底板约 80% 中性色、15% 作品色面、5% 强调元素，评图时目测即可。</p>
+<p><strong>主题色跟随作品，界面语义保持稳定。</strong>摄影项目可以用蓝底，品牌项目可以用红底，但返回、联系与当前导航仍使用同一套控件规范。首版采用浅色基底，深色只作为可选的作品章节；不在本阶段扩展完整深色模式。</p>
+<h3 id="_2">对比与可读性</h3>
+<p>正文及小号说明按至少 4.5:1 的对比度验收；大字也优先沿用这个要求 [R5]。森绿按钮配白字；芽绿、雾蓝底配墨黑。浅色分隔线不能替代清楚的输入框边界。链接同时使用下划线或明确的文字提示。</p>
+<p>基础色实算对比度：墨黑 / 纸白约 14.55:1，石灰 / 纸白约 5.31:1，白字 / 森绿约 7.67:1。控件线 / 素白约 3.95:1，用于边界而非小号文字。叠加透明度、纹理或照片后须重新验算。</p>
+<h2 id="05">05 · 字体与中文排版</h2>
+<p><strong>默认采用系统无衬线字体。</strong>中文在 Apple 设备上优先 PingFang SC，Windows 上优先 Microsoft YaHei；英文与数字沿用系统 UI 字体。主标题使用 600–650 的视觉字重，正文 400。不同平台不保证字形完全一致，须在 Windows 与 macOS 上核对换行；缺少某字重时选择实际可用的最近字重。</p>
+<p>宋体只用于“关于我”、观察手记或章节引言，每屏至多一个短句。系统回退采用 Songti SC / SimSun。需要跨设备稳定字形时，再引入拥有相应网页使用许可的字体，并先验证中文子集加载和回退效果。</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>用途</th>
+<th>桌面字号 / 行高</th>
+<th>手机字号 / 行高</th>
+<th>规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>首屏主标题</td>
+<td>72px / 1.12</td>
+<td>40px / 1.18</td>
+<td>桌面最多 2 行，手机最多 3 行</td>
+</tr>
+<tr>
+<td>页面标题</td>
+<td>56px / 1.15</td>
+<td>36px / 1.22</td>
+<td>优先自然断句</td>
+</tr>
+<tr>
+<td>章节标题</td>
+<td>36px / 1.25</td>
+<td>28px / 1.30</td>
+<td>与下段距离 24px</td>
+</tr>
+<tr>
+<td>作品标题</td>
+<td>24px / 1.40</td>
+<td>22px / 1.40</td>
+<td>项目名称保持完整</td>
+</tr>
+<tr>
+<td>正文</td>
+<td>18px / 1.80</td>
+<td>16px / 1.80</td>
+<td>长文宽度上限 44rem</td>
+</tr>
+<tr>
+<td>日期、图注</td>
+<td>14px / 1.60</td>
+<td>14px / 1.60</td>
+<td>使用石灰色，不再降低透明度</td>
+</tr>
+<tr>
+<td>导航、按钮</td>
+<td>15px / 1.40</td>
+<td>15px / 1.40</td>
+<td>500–600 字重</td>
+</tr>
+</tbody>
+</table></div>
+<p>中文标题字距为 0；需要收紧的英文大标题可设为 -0.025em。不要给中文标题套统一负字距。英文眉题可以用 0.08em 字距，但只做辅助信息。中英文字体基线和数字高度需实际核对。</p>
+<p>尽量让中文标点不孤悬于行首；主标题允许按语义设置受控断句，但不能把桌面的强制换行直接沿用到手机。长标题优先增加行数，不压缩文字或缩小为装饰性细字。</p>
+<h2 id="06">06 · 构图、网格与页面节奏</h2>
+<p>将“海报”的单一主角、“产品摄影”的细节展示与“作品集”的阅读顺序结合。单张海报的密集信息需要拆分为多个网页段落，而主图的视觉重心可以保留。</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>视口宽度</th>
+<th>内容宽度 / 边距</th>
+<th>网格</th>
+<th>栏间距 / 章节间距</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>≥1200px</td>
+<td>最大 1200px；两侧至少 48px</td>
+<td>12 栏</td>
+<td>24px / 128px</td>
+</tr>
+<tr>
+<td>768–1199px</td>
+<td>两侧 32px</td>
+<td>8 栏</td>
+<td>24px / 96px</td>
+</tr>
+<tr>
+<td>&lt;768px</td>
+<td>两侧 20px</td>
+<td>4 栏</td>
+<td>16px / 72px</td>
+</tr>
+</tbody>
+</table></div>
+<p>空间基准为 4px。常用间距依次为 8、12、16、24、32、48、64、72、96、128px。首屏不锁定为固定 100vh；内容较长时自然延展，并能看见后续作品入口。</p>
+<p>桌面首屏建议文字 5 栏、作品图 6 栏、中间空 1 栏。作品列表用稳定的双列结构，允许一个精选项目通栏；少量不对称来自图像内容与留白，不采用交错瀑布流。手机顺序统一为“身份 → 标题 → 简述 → 查看作品 → 主图”。</p>
+<p>长文使用单列阅读宽度。图片可以突破文字宽度，但说明文字回到统一对齐线。留白集中在章节之间，同组标题、标签和说明保持接近，避免所有元素等距离散开。</p>
+<h2 id="07">07 · 影像与材质</h2>
+<h3 id="_3">三类素材</h3>
+<ol>
+<li><strong>结果图：</strong>完整作品、产品界面、实物成果。背景简洁、边缘清楚、色彩准确。每个项目至少一张完整全貌。</li>
+<li><strong>过程图：</strong>草稿、材料、代码输出、实验或推敲过程。保留与项目有关的真实痕迹；配一句说明它回答什么问题。</li>
+<li><strong>个人图：</strong>工作状态、生活观察、个人收藏。自然光、简单环境、不过度磨皮；只在介绍本人或观点时出现。</li>
+</ol>
+<p>同组照片固定白平衡与主要光向。柔和侧光是默认选项；材质项目可以保留更强的明暗对比。金属用边缘高光表现，纸张用真实折痕或扫描纹理表现，玻璃用透光与环境反射表现。避免给所有作品加相同的虚拟投影与滤镜。</p>
+<p>作品封面统一 4:3；详情页主图优先保留原始比例，也可用 16:10 横图；肖像建议 3:4。封面可有意裁切，详情必须提供完整图。包含界面文字、图表或排版的作品使用 contain，不能用 cover 切掉信息。</p>
+<p>视觉样张中的“折光”和“生长记录”为原创形式示意，不代表用户已有项目。开发正式主页时换成真实作品；没有素材时先保留中性占位，不伪造项目成果。</p>
+<h3 id="_4">图形、肌理与图标</h3>
+<p>图形只选一种个人母题，例如“观察的括号”“一条生长线”或“手写圈注”。本方案推荐细线圈注：仅用于一条自述或一张过程图；不在导航、表单与正文后铺满。</p>
+<p>纹理优先使用真实作品或扫描材料，集中在图片内部。页面文字底层保持纯色。图标统一 20 / 24px、约 1.75px 描边、圆角端点。箭头、加号等来自同一套图标；装饰图形与功能图标有清楚区别。</p>
+<h2 id="08">08 · 组件视觉规范</h2>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>默认视觉</th>
+<th>悬停 / 焦点 / 其他状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>导航</td>
+<td>64–72px 高；姓名文字标识；作品 / 关于 / 联系</td>
+<td>当前项有短下划线；焦点有 2px 森绿轮廓；手机保持文字入口或提供带文字的菜单</td>
+</tr>
+<tr>
+<td>主按钮</td>
+<td>森绿底、白字；高 48px；横向内边距 22px；圆角 12px</td>
+<td>悬停深森绿；按下轻微颜色变化；加载保留原宽并显示“处理中”</td>
+</tr>
+<tr>
+<td>次按钮</td>
+<td>透明底、墨黑字、控件线边框；同高同圆角</td>
+<td>悬停素白底；焦点不改变尺寸</td>
+</tr>
+<tr>
+<td>文字链接</td>
+<td>森绿字、下划线；15–18px</td>
+<td>悬停深森绿；visited 可保持同色，依靠浏览器历史提供常规行为</td>
+</tr>
+<tr>
+<td>作品入口</td>
+<td>图片圆角 16px；标题与元信息在图外；无整块白卡底</td>
+<td>仅精细指针设备图片放大 1.02 倍；标题加下划线；键盘焦点覆盖入口范围</td>
+</tr>
+<tr>
+<td>分类标签</td>
+<td>14px；高至少 32px；轻底色或文字</td>
+<td>交互型筛选增加至 44px 点击区；选中同时有勾选或下划线</td>
+</tr>
+<tr>
+<td>输入框（如采用联系表单）</td>
+<td>高至少 48px；圆角 12px；明确标签；控件线边框</td>
+<td>聚焦森绿边框与外轮廓；错误用提示红、错误文字及图标；不只变颜色</td>
+</tr>
+<tr>
+<td>空内容 / 图片失败</td>
+<td>保留图片比例；显示清楚的说明与重试入口</td>
+<td>不使用持续闪动的装饰；不让布局突然塌陷</td>
+</tr>
+</tbody>
+</table></div>
+<p>阴影仅用于悬浮层与必要的材质表现。常规作品卡片不叠加底板、边框与投影。正文阅读区采用 0px 圆角；图片用 16px，组件用 12px，真实胶囊标签才用 999px。</p>
+<p>联系区首版可只使用公开邮箱链接与社交主页。仅在确有收集需求时增加表单，并按同一套组件状态实施。</p>
+<h2 id="09">09 · 动效语言</h2>
+<p>动作表达“我可以被操作”“新的内容到了”或“正在切换作品”。不让装饰性运动抢过作品。</p>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>时长</th>
+<th>幅度 / 曲线</th>
+<th>限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>颜色、边框状态</td>
+<td>160ms</td>
+<td>ease-out</td>
+<td>不改变布局</td>
+</tr>
+<tr>
+<td>作品悬停</td>
+<td>240ms</td>
+<td>图片 scale 1 → 1.02</td>
+<td>只在 hover:hover 且 pointer:fine 时启用</td>
+</tr>
+<tr>
+<td>章节首次出现（可选）</td>
+<td>420ms</td>
+<td>opacity 0 → 1；Y 12px → 0；cubic-bezier(.22,1,.36,1)</td>
+<td>只执行一次；正文初始可见，脚本就绪后再增强</td>
+</tr>
+<tr>
+<td>图片切换（如有）</td>
+<td>240ms</td>
+<td>交叉淡入</td>
+<td>保持同高容器与可见的前后按钮</td>
+</tr>
+</tbody>
+</table></div>
+<p>不设自动播放声音、自定义鼠标、滚动劫持、无限漂浮物或强制加载开场。普通页面无需视差。系统开启减少动态效果时，移除位移、缩放、滚动平滑与非必要过渡。</p>
+<h2 id="10">10 · 页面应用方案</h2>
+<h3 id="_5">首页：身份 → 作品 → 人 → 联系</h3>
+<p><strong>首屏。</strong> 姓名 / 专业方向、小段自述、一个“查看作品”入口和一张精选作品图。标题示例：“把观察，做成作品。”具体职业与观点在有真实内容后替换，不把这句话当固定品牌口号。</p>
+<p><strong>精选作品。</strong> 先展示 3–5 项。标题、类别、年份清楚可见；不靠悬停才显示项目信息。每项用一句话说明解决的问题或探索的主题。分类较少时不加筛选器。</p>
+<p><strong>关于。</strong> 一张真实照片或一张能代表创作习惯的过程图；80–150 字介绍；2–3 个能被作品证明的能力标签。可加一个短宋体句子，作为全页最有人味的停顿。</p>
+<p><strong>联系。</strong> 明确说明合作意向或交流方式，使用真实、允许公开的联系方式。页脚只保留必要的署名和链接。</p>
+<h3 id="_6">作品详情：结果 → 背景 → 关键选择 → 过程证据 → 回看</h3>
+<p>开头一张完整成果图，随后列出角色、时间、范围与协作方式；接着解释 2–3 个关键选择，用过程图支撑；末尾给出结果或反思及下一件作品。尚无量化结果时陈述观察，不用虚构数据装点页面。</p>
+<p>正文不为了保持“海报感”拆成大量孤立口号；大图间的说明应帮助读者理解设计。界面、研究、摄影、写作等不同作品允许不同的详情叙事，统一的是排版与导航。</p>
+<h3 id="_7">文案语气</h3>
+<p>使用第一人称、短句和具体动作。写“我把三个入口合并成一个”，比“重塑体验边界”更能展示判断。入口使用“看作品”“了解我”“联系我”等可预期用语。具体事实、署名、项目名均由真实资料替换。</p>
+<h2 id="11">11 · 手机与无障碍细则</h2>
+<p>手机以 390px 为主设计宽度，同时验收 360px 和 320px。320px 时允许内容变长，不允许横向页面滚动。按钮和导航建议至少 44×44px 可点击区域；这是本项目的舒适度目标，WCAG 2.2 AA 的目标尺寸条款为至少 24×24 CSS px，并包含例外条件 [R6]。</p>
+<p>交互信息必须在触屏与键盘下同样可得；不以鼠标悬停、颜色或动效作为唯一信息来源。作品链接拥有完整可读名称；装饰 SVG 对辅助技术隐藏，有内容的图片附有描述。键盘焦点清楚且不被吸顶导航遮挡。</p>
+<p>标题可扩大、正文可缩放至 200%；不把正文烘焙到图片中。文字覆盖图像时提供稳定纯色底或渐变遮罩并单独验算对比；优先把说明放在图片外。</p>
+<h2 id="12">12 · 素材与开发交付</h2>
+<h3 id="_8">需要准备的真实素材</h3>
+<ul>
+<li>个人姓名或署名、专业方向、简介、联系方式与公开社交链接。</li>
+<li>3–5 个精选项目，每个包含项目名、年份、个人角色、一句话摘要、封面和完整成果图。</li>
+<li>每个项目 2–4 张有解释价值的过程图；有协作者时明确署名与贡献。</li>
+<li>一张肖像或工作状态图；一个可持续使用的个人图形母题。</li>
+</ul>
+<h3 id="_9">文件和导出</h3>
+<div class="table-scroll" tabindex="0"><table>
+<thead>
+<tr>
+<th>资产</th>
+<th>建议交付</th>
+<th>开发要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>作品封面</td>
+<td>原始文件 + 1600×1200px 导出版</td>
+<td>提供 480 / 800 / 1200 / 1600 宽响应式尺寸；单张优先控制在 250KB 内，文字可读性优先</td>
+</tr>
+<tr>
+<td>详情主图</td>
+<td>原始比例，长边约 2400px</td>
+<td>图片标注 width / height；重要文字图允许更高体积或无损格式</td>
+</tr>
+<tr>
+<td>肖像</td>
+<td>1200×1600px</td>
+<td>提供手机裁切焦点，不把人脸放在边缘</td>
+</tr>
+<tr>
+<td>图标 / 个人标识</td>
+<td>SVG</td>
+<td>统一 viewBox、描边、颜色变量</td>
+</tr>
+<tr>
+<td>可选视频</td>
+<td>MP4 + 静态封面</td>
+<td>默认用户主动播放；提供字幕或等价文字说明</td>
+</tr>
+</tbody>
+</table></div>
+<p>照片优先导出 AVIF / WebP 并保留兼容回退；含小字、细线的作品按实际清晰度选择 PNG 或高质量 WebP。优先加载首屏主图；屏下图延迟加载。图片加载失败仍保留标题和项目链接。</p>
+<p>开发直接引用配套 <code>tokens.css</code> 作为初始变量，按项目技术栈映射。它是起始样式，不是完整组件库。原生系统字体无需下载；如加入网页字体，应交付所需授权、字重与子集配置。配套视觉样张不依赖外部图片或字体，可以离线查看。</p>
+<h3 id="_10">设计与开发一致性检查</h3>
+<ul>
+<li>[ ] 首屏一眼能看出“谁、做什么、如何看作品”；没有遮住作品的开场动画。</li>
+<li>[ ] 使用真实作品，或清楚标记尚未替换的示意内容。</li>
+<li>[ ] 同一页面没有多种圆角、阴影、描边语言竞争。</li>
+<li>[ ] 作品封面比例一致；详情图完整；图文不被裁切。</li>
+<li>[ ] 森绿只承担稳定的品牌与交互语义，辅助色按章节有节制出现。</li>
+<li>[ ] Windows、macOS 与手机上的中文没有缺字、挤压或不合理断行。</li>
+<li>[ ] 320 / 360 / 390 / 768 / 1440px 宽度下无横向溢出。</li>
+<li>[ ] 链接、筛选、表单具有键盘焦点与触屏可用状态。</li>
+<li>[ ] 对比、减少动态效果、200% 文字缩放与图片失败状态通过人工检查。</li>
+<li>[ ] 项目角色、图片来源、字体与个人标识清楚可追溯。</li>
+</ul>
+<h2 id="13">13 · 易偏离方向的做法</h2>
+<p><strong>整站全白 + 超大标题 + 灰色小字。</strong>容易只有“极简”的外观而没有个人内容。改为一个有观点的标题、一张强作品图、清楚可读的说明。</p>
+<p><strong>整站奶油色 + 叶片 + 手写体。</strong>容易让个人作品集呈现茶饮品牌模板。自然感改由过程照片、材料细节和一个个人笔触承担。</p>
+<p><strong>每个项目都是同一种悬浮样机。</strong>会抹平不同作品的差异。为每个项目选一张最能解释其价值的图，保持外部编辑秩序一致。</p>
+<p><strong>大量毛玻璃、霓虹渐变和视差。</strong>这些并非本方案从产品和海报中选择的核心语言。只在作品本身有相关主题时使用，界面回到安静基底。</p>
+<p><strong>为了风格压缩阅读。</strong>正文过小、灰字过浅、图注只在悬停出现，都会妨碍作品被理解。阅读与操作清晰度优先于视觉修饰。</p>
+<h2 id="14">14 · 参考索引</h2>
+<p>访问日期：2026-10-18。以下链接用于查看产品、海报与字形素材，不作为网页样式参照。</p>
+<ul>
+<li><strong>[R1] Apple 官方 / 产品影像，2024-10-28。</strong> <a href="https://www.apple.com/newsroom/2024/10/apple-introduces-new-imac-supercharged-by-m4-and-apple-intelligence/">iMac M4 产品发布素材</a>。重点看多色产品合照、绿色机身背面与同色配件；用于观察色彩与主体呈现。</li>
+<li><strong>[R2] Apple 官方 / 广告摄影项目，2022-04-13。</strong> <a href="https://www.apple.com/newsroom/2022/04/apple-unveils-the-best-photos-from-the-shot-on-iphone-macro-challenge/">Shot on iPhone Macro Challenge 获选作品</a>。重点看自然局部、微距取景与材料细节；用于建立“从观察中发现作品”的影像方向。</li>
+<li><strong>[R3] SocialBeta / 品牌宣传素材转载，2025-04-16。</strong> <a href="https://socialbeta.com/campaign/24596">喜茶「木姜子滇木瓜」</a>。重点看“酸 / 辛 / 鲜”静物海报中的原料、纸布材料和深底构图；该项为行业媒体收录，不是官方设计规范。</li>
+<li><strong>[R4] 方正字库官方 / 字体合作项目，2023-07-31。</strong> <a href="https://www.foundertype.com/index.php/News/newsdetails/id/129.html">喜茶中式灵感体：中式灵感，喜悦发生</a>。用于观察传统字形如何被提炼成当代中文表达。</li>
+<li><strong>[R5] W3C / 可读性依据。</strong> <a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html">WCAG 2.2：Contrast (Minimum)</a>。用于文本对比度验收。</li>
+<li><strong>[R6] W3C / 操作可用性依据。</strong> <a href="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html">WCAG 2.2：Target Size (Minimum)</a>。用于区分标准底线与本项目的 44px 建议。</li>
+</ul>
+<p>参考素材保留原品牌归属。正式网站以个人作品与独立视觉资产表达上述方法；配套样张中的图形为本项目原创示意，未复制品牌标识或广告。</p></article></div>
+<footer class="closing"><span>清晰而有生气 / Personal portfolio art direction</span><span>V1.0 · 2026.10.18 · 可离线查看</span></footer>
+</main><script>document.getElementById('print-guide').addEventListener('click',()=>window.print());</script></body></html>

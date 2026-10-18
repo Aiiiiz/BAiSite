@@ -1,0 +1,9 @@
+---
+import { columns } from '../config/site';
+import type { CollectionEntry } from 'astro:content';
+interface Props { posts: CollectionEntry<'posts'>[] }
+const { posts } = Astro.props;
+---
+<aside class="blog-rail" aria-label="博客栏目"><p class="rail-label">INDEX / 栏目</p><nav>
+  {columns.map((column, index) => <a href={`#${column.id}`} class:list={[{ 'is-current': index === 0 }]} data-section-link={column.id} aria-current={index === 0 ? 'location' : undefined}><span class="rail-indicator" aria-hidden="true"></span><span>{column.title}</span><small>{String(posts.filter(p => p.data.category === column.id).length).padStart(2, '0')}</small></a>)}
+</nav><div class="rail-bottom"><span class="rail-leaf" aria-hidden="true"></span><p>慢慢写，<br />也慢慢生长。</p><span>PERSONAL JOURNAL</span></div></aside>

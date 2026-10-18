@@ -1,0 +1,9 @@
+---
+import { withBase } from '../lib/paths';
+interface Props { src: string; alt: string; eager?: boolean; class?: string; width?: number; height?: number; retry?: boolean }
+const { src, alt, eager = false, class: className = '', width = 640, height = 480, retry = true } = Astro.props;
+---
+<div class:list={['artwork', className]}>
+  <img src={withBase(src)} alt={alt} width={width} height={height} loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : 'auto'} />
+  <div class="image-fallback" role="status" hidden><span>图片暂时无法显示</span><small>你仍可继续阅读作品介绍</small>{retry && <button type="button" data-retry-image>重新加载</button>}</div>
+</div>

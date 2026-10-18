@@ -1,0 +1,11 @@
+---
+import { site } from '../config/site';
+import { withBase } from '../lib/paths';
+---
+<footer class="site-footer blog-footer">
+  <div class="container footer-inner">
+    <a href={withBase('/')} class="footer-name">{site.title}<span>记录、学习，还有一些未完的想法。</span></a>
+    <p>{site.profilePending ? '个人资料待补充 · 当前文章为原创示例' : `© ${new Date().getFullYear()} ${site.name}`}</p>
+    <a href="#top" class="back-top">回到顶部 <span aria-hidden="true">↑</span></a>
+  </div>
+</footer>

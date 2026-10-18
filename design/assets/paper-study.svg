@@ -1,0 +1,18 @@
+<svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="原创形式示意：雾蓝背景上，一条浅色纸带构成有转折的环，侧光强调纸带的厚度">
+<defs>
+ <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffefa"/><stop offset=".5" stop-color="#e7e9e2"/><stop offset="1" stop-color="#aeb7aa"/></linearGradient>
+ <linearGradient id="fold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a4b5b5"/><stop offset=".48" stop-color="#f9faf1"/><stop offset="1" stop-color="#f4f6f0"/></linearGradient>
+ <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fcfdf7"/><stop offset="1" stop-color="#c2ccc1"/></linearGradient>
+ <filter id="soft"><feGaussianBlur stdDeviation="14"/></filter>
+</defs>
+<path fill="#bdcfdf" d="M0 0h640v480H0z"/>
+<ellipse cx="333" cy="389" rx="164" ry="19" fill="#617f8c" opacity=".21" filter="url(#soft)"/>
+<path d="M170 316 243 121Q251 102 274 107L467 145Q486 149 481 171L425 354Q420 370 397 369L195 347Q161 344 170 316Z" fill="url(#paper)"/>
+<path d="m248 148 156 31-44 129-153-17Z" fill="#bdcfdf"/>
+<path d="m171 315 77-167 44 43-48 130 153 48-202-22q-32-2-24-32Z" fill="url(#fold)"/>
+<path d="m292 191 112-12 63-34-193-38q-21-5-31 14l-36 170 41-143Z" fill="url(#edge)"/>
+<path d="m404 179 63-34q20 2 14 26l-56 183q-5 16-28 15l-37-61Z" fill="url(#paper)"/>
+<path d="m244 321 153 48-37-61-68-117Z" fill="#d8dfd3"/>
+<path d="m243 121 31-14 193 38" fill="none" stroke="#fff" stroke-width="2" opacity=".75"/>
+<circle cx="508" cy="88" r="9" fill="#c66a4a"/>
+</svg>

@@ -1,0 +1,30 @@
+{
+  "name": "personal-blog",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "dev": "node tools/astro.mjs dev --host 127.0.0.1",
+    "server": "npm run dev",
+    "check": "node tools/astro.mjs check && node tools/check-content.mjs",
+    "build": "node tools/astro.mjs build",
+    "preview": "node tools/astro.mjs preview --host 127.0.0.1",
+    "test": "node --test test/*.test.mjs",
+    "test:browser": "playwright test",
+    "check:dist": "node tools/check-static.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "0.9.10",
+    "@astrojs/markdown-remark": "7.3.3",
+    "astro": "7.4.0",
+    "typescript": "6.0.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "24.19.2",
+    "yaml": "2.9.1"
+  }
+}

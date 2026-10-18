@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { withBase } from '../lib/paths';
+import Artwork from './Artwork.astro';
+import Arrow from './Arrow.astro';
+interface Props { project: CollectionEntry<'projects'>; index?: number }
+const { project, index = 1 } = Astro.props;
+const p = project.data;
+---
+<article class="project-card">
+  <a class="project-link" href={withBase(`/projects/${p.slug}/`)} aria-label={`查看${p.demo ? '示例作品：' : '作品：'}${p.title}`}>
+    <div class:list={['project-media', `tone-${p.tone}`]}>
+      <Artwork src={p.cover} alt={p.coverAlt} retry={false} />
+      <span class="project-number" aria-hidden="true">{String(index).padStart(2, '0')}</span>
+      {p.demo && <span class="demo-badge">示例作品 · 待替换</span>}
+      <span class="project-open" aria-hidden="true"><Arrow /></span>
+    </div>
+    <div class="project-meta"><span>{p.category}</span><span>{p.year ?? '年份待补充'}</span></div>
+    <h3>{p.title}</h3>
+    <p class="project-summary">{p.summary}</p>
+  </a>
+</article>

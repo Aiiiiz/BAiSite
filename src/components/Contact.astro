@@ -1,0 +1,18 @@
+---
+import { site } from '../config/site';
+import Arrow from './Arrow.astro';
+---
+<section id="contact" class="contact-section section-space" aria-labelledby="contact-title">
+  <div class="container contact-inner">
+    <div>
+      <p class="eyebrow">SAY HELLO / 联系</p>
+      <h2 id="contact-title">让下一次交流，<br />从这里开始。</h2>
+      <p class="contact-copy">关于一篇文章、一个问题，或者新的想法。</p>
+    </div>
+    <div class="contact-action">
+      {site.email ? <a class="button button-primary" href={`mailto:${site.email}`}>给我写信 <Arrow /></a> : <p class="contact-pending"><span class="status-dot" aria-hidden="true"></span>联系方式待补充</p>}
+      {site.email && <a class="contact-email" href={`mailto:${site.email}`}>{site.email}</a>}
+      {site.socials.length > 0 && <ul class="social-links">{site.socials.map(link => <li><a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}<Arrow /></a></li>)}</ul>}
+    </div>
+  </div>
+</section>

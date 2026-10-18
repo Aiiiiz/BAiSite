@@ -1,0 +1,17 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { getPosts, columnFor, formatDate, readingMinutes } from '../lib/posts';
+import { columns } from '../config/site';
+import { withBase } from '../lib/paths';
+import Arrow from '../components/Arrow.astro';
+const posts = await getPosts();
+const years = [...new Set(posts.map(p => p.data.date.getUTCFullYear()))];
+---
+<SiteLayout title="文章归档" active="archive">
+  <div class="container archive-page"><header class="page-intro"><p class="eyebrow">ARCHIVE / 文章归档</p><h1>把写过的，<br />好好收在一起。</h1><p>按栏目找一篇文章，或者接着读上次留下的想法。</p></header>
+    <div class="archive-controls" data-archive><div class="archive-tabs" role="group" aria-label="按栏目筛选"><button type="button" data-category-filter="all" aria-pressed="true">全部 <span>{posts.length}</span></button>{columns.map(c => <button type="button" data-category-filter={c.id} aria-pressed="false">{c.title}<span>{posts.filter(p => p.data.category === c.id).length}</span></button>)}</div><button class="saved-filter" type="button" data-saved-filter aria-pressed="false">稍后读 <span data-saved-count>0</span></button></div>
+    <p class="archive-status" role="status" aria-live="polite" data-archive-status>共 {posts.length} 篇文章</p>
+    <div class="archive-list">{years.map(year => <section data-archive-year><h2 class="archive-year">{year}<span>YEAR</span></h2><div>{posts.filter(p => p.data.date.getUTCFullYear() === year).map(post => <article class="archive-entry" data-archive-entry data-category={post.data.category} data-post-slug={post.data.slug}><a href={withBase(`/posts/${post.data.slug}/`)}><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time><div><p class="archive-entry-meta">{columnFor(post.data.category).title} / 约 {readingMinutes(post)} 分钟{post.data.demo && ' / 示例文章'}</p><h3>{post.data.title}</h3><p class="archive-summary">{post.data.summary}</p></div><Arrow /></a><button type="button" class="bookmark-button" data-bookmark={post.data.slug} aria-pressed="false" aria-label={`稍后读：${post.data.title}`}><span data-bookmark-label>稍后读</span><span aria-hidden="true">＋</span></button></article>)}</div></section>)}</div>
+    <div class="empty-state" data-archive-empty hidden={posts.length > 0}><h2>这里还没有记录。</h2><p>试试其他栏目，或先收藏几篇想读的文章。</p><button type="button" class="text-link" data-reset-filters>查看全部文章 <Arrow direction="right" /></button></div>
+  </div>
+</SiteLayout>

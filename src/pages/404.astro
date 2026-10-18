@@ -1,0 +1,6 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Arrow from '../components/Arrow.astro';
+import { withBase } from '../lib/paths';
+---
+<SiteLayout title="页面未找到" noindex><section class="container not-found"><p class="eyebrow">404 / PAGE NOT FOUND</p><h1>这一页，<br />暂时没有找到。</h1><p>链接可能已更新。可以先去归档里继续看看。</p><a class="button button-primary" href={withBase('/archive/')}>浏览文章 <Arrow direction="right" /></a></section></SiteLayout>
