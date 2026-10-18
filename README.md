@@ -1,6 +1,6 @@
-# 此间 · 个人博客
+# Z-A · 个人博客
 
-个人博客，栏目为用户确认的「随笔、学习笔记、项目记录」。站名「此间」为暂定创作名称，可以在 `src/config/site.ts` 修改。
+个人博客，栏目为用户确认的「随笔、学习笔记、项目记录」。
 
 基于 Astro 7.4.0、TypeScript 与 Markdown Content Collections，使用原生 CSS 和浏览器脚本。依赖精确锁定，推荐 Node.js 24 LTS（本机验证为 24.15.0）；最低使用 Astro 支持的 Node.js 22.22+ 偶数版本。
 
