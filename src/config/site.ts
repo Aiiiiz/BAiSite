@@ -1,6 +1,6 @@
 export const site = {
   title: 'Z-A',
-  name: '章白',
+  name: '白',
   direction: 'zju生科',
   description: '一个记录日常、学习与实践的个人博客。',
   introduction: '个人介绍待补充。这里将记录我的背景、关注的方向，以及为什么想把一些观察和思考写下来。',
@@ -11,7 +11,7 @@ export const site = {
 };
 
 export const columns = [
-  { id: 'essays', title: '随笔', english: 'ESSAYS', description: '日常里的小事，也值得认真写下。', tone: 'neutral' },
-  { id: 'notes', title: '学习笔记', english: 'LEARNING NOTES', description: '把读过的、想过的，慢慢整理清楚。', tone: 'neutral' },
-  { id: 'making', title: '项目记录', english: 'MAKING THINGS', description: '从一个想法开始，记录尝试与推敲。', tone: 'neutral' },
+  { id: 'essays', title: '随笔', english: 'ESSAYS', tone: 'neutral' },
+  { id: 'notes', title: '学习笔记', english: 'LEARNING NOTES', tone: 'neutral' },
+  { id: 'making', title: '项目记录', english: 'MAKING THINGS', tone: 'neutral' },
 ] as const;
